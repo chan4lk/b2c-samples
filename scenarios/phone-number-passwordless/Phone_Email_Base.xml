@@ -1,4 +1,4 @@
-<TrustFrameworkPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" PolicySchemaVersion="0.3.0.0" TenantId="yourtenant.onmicrosoft.com" PolicyId="B2C_1A_Phone_Email_Base" PublicPolicyUri="http://yourtenant.onmicrosoft.com/B2C_1A_Phone_Email_Base" >
+<TrustFrameworkPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" PolicySchemaVersion="0.3.0.0" TenantId="bisteccaredevdemo.onmicrosoft.com" PolicyId="B2C_1A_Phone_Email_Base" PublicPolicyUri="http://bisteccaredevdemo.onmicrosoft.com/B2C_1A_Phone_Email_Base" >
   <BuildingBlocks>
     <ClaimsSchema>
       <ClaimType Id="tenantId">
@@ -1483,8 +1483,8 @@
           <DisplayName>Local Account SignIn</DisplayName>
           <Protocol Name="OpenIdConnect" />
           <Metadata>
-            <Item Key="client_id">ProxyIdentityExperienceFrameworkAppId</Item>
-            <Item Key="IdTokenAudience">IdentityExperienceFrameworkAppId</Item>
+            <Item Key="client_id">b033474f-196a-4ead-b0b7-4dd9fa78d3f7</Item>
+            <Item Key="IdTokenAudience">e53403f1-1764-4cb3-a35b-099427f6b738</Item>
             <Item Key="UserMessageIfClaimsPrincipalDoesNotExist">We can't seem to find your account</Item>
             <Item Key="UserMessageIfInvalidPassword">Your password is incorrect</Item>
             <Item Key="UserMessageIfOldPasswordUsed">Looks like you used an old password</Item>
@@ -1500,8 +1500,8 @@
             <Item Key="HttpBinding">POST</Item>
           </Metadata>
           <InputClaims>
-            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="ProxyIdentityExperienceFrameworkAppId" />
-            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="IdentityExperienceFrameworkAppId" />
+            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="b033474f-196a-4ead-b0b7-4dd9fa78d3f7" />
+            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="e53403f1-1764-4cb3-a35b-099427f6b738" />
             <InputClaim ClaimTypeReferenceId="email" PartnerClaimType="username" Required="true" />
             <InputClaim ClaimTypeReferenceId="password" Required="true" />
             <InputClaim ClaimTypeReferenceId="grant_type" DefaultValue="password" AlwaysUseDefaultValue="true" />

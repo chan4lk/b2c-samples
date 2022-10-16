@@ -1,8 +1,8 @@
 # Password-less Sign-up or sign-in with phone number and/or email
 
 ## Instructions
-* In all policies, replace instances of ```yourtenant.onmicrosoft.com``` with your tenant.
-* In Phone_Email_Base, replace instances of ```ProxyIdentityExperienceFrameworkAppId``` and ```IdentityExperienceFrameworkAppId``` with the appropriate application IDs.
+* In all policies, replace instances of ```bisteccaredevdemo.onmicrosoft.com``` with your tenant.
+* In Phone_Email_Base, replace instances of ```b033474f-196a-4ead-b0b7-4dd9fa78d3f7``` and ```e53403f1-1764-4cb3-a35b-099427f6b738``` with the appropriate application IDs.
 * In Phone_Email_Base, replace ```{insert your privacy statement URL}``` and ```{insert your terms and conditions URL}``` with the appropriate URLs. Alternatively, delete the lines containing this text if you do not want these links shown on your phone signup/signin pages.
 * For policies in China, in Phone_Email_Base, replace occurrences of ```sts.windows.net``` with ```sts.chinacloudapi.cn``` and ```login.microsoftonline.com``` with ```login.chinacloudapi.cn```
 
