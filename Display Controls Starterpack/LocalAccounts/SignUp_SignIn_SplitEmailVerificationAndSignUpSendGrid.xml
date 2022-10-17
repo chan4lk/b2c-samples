@@ -1,5 +1,5 @@
 <TrustFrameworkPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" DeploymentMode="Development" UserJourneyRecorderEndpoint="urn:journeyrecorder:applicationinsights"
   xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" PolicySchemaVersion="0.3.0.0" TenantId="bisteccaredevdemo.onmicrosoft.com" PolicyId="B2C_1A_Demo_SignUp_SignIn_SplitEmailVerificationAndSignUpSendGrid" PublicPolicyUri="http://bisteccaredevdemo.onmicrosoft.com/B2C_1A_Demo_SignUp_SignIn_SplitEmailVerificationAndSignUpSendGrid">
 
   <BasePolicy>
@@ -69,7 +69,7 @@
             <Item Key="language.button_continue">Continue</Item>
           </Metadata>
           <DisplayClaims>
-            <DisplayClaim DisplayControlReferenceId="emailVerificationControl" />
+            <DisplayClaim DisplayControlReferenceId="emailVerificationControl2" />
           </DisplayClaims>
           <OutputClaims>
             <OutputClaim ClaimTypeReferenceId="email" Required="true" />
@@ -168,6 +168,9 @@
 
   <RelyingParty>
     <DefaultUserJourney ReferenceId="SignUpOrSignIn_Custom" />
+    <UserJourneyBehaviors>
+      <JourneyInsights TelemetryEngine="ApplicationInsights" InstrumentationKey="0a274e24-dbf2-4b5e-8787-1fbb4bec5ee5" DeveloperMode="true" ClientEnabled="false" ServerEnabled="true" TelemetryVersion="1.0.0" />
+    </UserJourneyBehaviors>
     <TechnicalProfile Id="PolicyProfile">
       <DisplayName>PolicyProfile</DisplayName>
       <Protocol Name="OpenIdConnect" />

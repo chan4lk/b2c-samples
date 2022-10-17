@@ -69,12 +69,14 @@
     </ClaimsTransformations>
     <ContentDefinitions>
       <ContentDefinition Id="api.localaccountsignup">
+        <LoadUri>https://bisteccarestoreage.blob.core.windows.net/root/custom-signup-ui.html</LoadUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.14</DataUri>
         <LocalizedResourcesReferences MergeBehavior="Prepend">
           <LocalizedResourcesReference Language="en" LocalizedResourcesReferenceId="api.custom-email.en" />
         </LocalizedResourcesReferences>
       </ContentDefinition>
       <ContentDefinition Id="api.localaccountpasswordreset">
+        <LoadUri>https://bisteccarestoreage.blob.core.windows.net/root/custom-password-ui.html</LoadUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.14</DataUri>
         <LocalizedResourcesReferences MergeBehavior="Prepend">
           <LocalizedResourcesReference Language="en" LocalizedResourcesReferenceId="api.custom-email.en" />
@@ -90,15 +92,15 @@
           <LocalizedString ElementType="GetLocalizedStringsTransformationClaimType" StringId="email_code">Your code is</LocalizedString>
           <LocalizedString ElementType="GetLocalizedStringsTransformationClaimType" StringId="email_signature">Sincerely</LocalizedString>
           <!-- Display control sign-up UI elements-->
-          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl" StringId="intro_msg">Verification is necessary. Please click Send button.</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl" StringId="success_send_code_msg">Verification code has been sent to your inbox. Please copy it to the input box below.</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl" StringId="failure_send_code_msg">We are having trouble verifying your email address. Please enter a valid email address and try again.</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl" StringId="success_verify_code_msg">E-mail address verified. You can now continue.</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl" StringId="failure_verify_code_msg">We are having trouble verifying your email address. Please try again.</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl" StringId="but_send_code">Send verification code</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl" StringId="but_verify_code">Verify code</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl" StringId="but_send_new_code">Send new code</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl" StringId="but_change_claims">Change e-mail</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl2" StringId="intro_msg">Verification is necessary. Please click Send button.</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl2" StringId="success_send_code_msg">Verification code has been sent to your inbox. Please copy it to the input box below.</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl2" StringId="failure_send_code_msg">We are having trouble verifying your email address. Please enter a valid email address and try again.</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl2" StringId="success_verify_code_msg">E-mail address verified. You can now continue.</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl2" StringId="failure_verify_code_msg">We are having trouble verifying your email address. Please try again.</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl2" StringId="but_send_code">Send verification code</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl2" StringId="but_verify_code">Verify code</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl2" StringId="but_send_new_code">Send new code</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl2" StringId="but_change_claims">Change e-mail</LocalizedString>
           <!-- Display control password reset UI elements-->
           <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationSSPRControl" StringId="intro_msg">Verification is necessary. Please click Send button.</LocalizedString>
           <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationSSPRControl" StringId="success_send_code_msg">Verification code has been sent to your inbox. Please copy it to the input box below.</LocalizedString>
@@ -124,7 +126,7 @@
       </LocalizedResources>
     </Localization>
     <DisplayControls>
-      <DisplayControl Id="emailVerificationControl" UserInterfaceControlType="VerificationControl">
+      <DisplayControl Id="emailVerificationControl2" UserInterfaceControlType="VerificationControl">
         <DisplayClaims>
           <DisplayClaim ClaimTypeReferenceId="email" Required="true" />
           <DisplayClaim ClaimTypeReferenceId="verificationCode" ControlClaimType="VerificationCode" Required="true" />
@@ -246,7 +248,7 @@
             <InputClaimsTransformation ReferenceId="GetLocalizedStringsForEmail" />
           </InputClaimsTransformations>
           <DisplayClaims>
-            <DisplayClaim DisplayControlReferenceId="emailVerificationControl" />
+            <DisplayClaim DisplayControlReferenceId="emailVerificationControl2" />
             <DisplayClaim ClaimTypeReferenceId="displayName" Required="true" />
             <DisplayClaim ClaimTypeReferenceId="givenName" Required="true" />
             <DisplayClaim ClaimTypeReferenceId="surName" Required="true" />
