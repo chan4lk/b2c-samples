@@ -161,6 +161,39 @@
           </Action>
         </Actions>
       </DisplayControl>
+      <DisplayControl Id="emailVerificationControl3" UserInterfaceControlType="VerificationControl">
+         <InputClaims>
+          <InputClaim ClaimTypeReferenceId="email" DefaultValue="{OIDC:LoginHint}" AlwaysUseDefaultValue="true" />
+        </InputClaims>
+        <DisplayClaims>
+          <DisplayClaim ClaimTypeReferenceId="email" Required="true" />
+          <DisplayClaim ClaimTypeReferenceId="verificationCode" ControlClaimType="VerificationCode" Required="true" />
+        </DisplayClaims>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="email" />
+        </OutputClaims>
+        <Actions>
+          <Action Id="SendCode">
+            <ValidationClaimsExchange>
+              <ValidationClaimsExchangeTechnicalProfile TechnicalProfileReferenceId="AAD-CheckEmailAddressExists" />
+              <ValidationClaimsExchangeTechnicalProfile TechnicalProfileReferenceId="GenerateOtp" />
+              <ValidationClaimsExchangeTechnicalProfile TechnicalProfileReferenceId="SendOtp">
+                <Preconditions>
+                  <Precondition Type="ClaimsExist" ExecuteActionsIf="false">
+                    <Value>objectId</Value>
+                    <Action>SkipThisValidationTechnicalProfile</Action>
+                  </Precondition>
+                </Preconditions>
+              </ValidationClaimsExchangeTechnicalProfile>
+            </ValidationClaimsExchange>
+          </Action>
+          <Action Id="VerifyCode">
+            <ValidationClaimsExchange>
+              <ValidationClaimsExchangeTechnicalProfile TechnicalProfileReferenceId="VerifyOtp" />
+            </ValidationClaimsExchange>
+          </Action>
+        </Actions>
+      </DisplayControl>
       <DisplayControl Id="emailVerificationSSPRControl" UserInterfaceControlType="VerificationControl">
         <InputClaims>
           <InputClaim ClaimTypeReferenceId="email" DefaultValue="{OIDC:LoginHint}" AlwaysUseDefaultValue="true" />
@@ -289,13 +322,34 @@
     <ClaimsProvider>
       <DisplayName>Reset Password</DisplayName>
       <TechnicalProfiles>
-        <TechnicalProfile Id="LocalAccountDiscoveryUsingEmailAddress">
+        <TechnicalProfile Id="LocalAccountDiscoveryUsingEmailAddress2">
+          <DisplayName>Reset password using email address</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <Metadata>
+            <Item Key="IpAddressClaimReferenceId">IpAddress</Item>
+            <Item Key="ContentDefinitionReferenceId">api.localaccountpasswordreset</Item>
+          </Metadata>
+          <CryptographicKeys>
+            <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
+          </CryptographicKeys>
+          <IncludeInSso>false</IncludeInSso>
           <InputClaimsTransformations>
             <InputClaimsTransformation ReferenceId="GetLocalizedStringsForEmail" />
           </InputClaimsTransformations>
           <DisplayClaims>
-            <DisplayClaim DisplayControlReferenceId="emailVerificationSSPRControl"/>
+            <DisplayClaim DisplayControlReferenceId="emailVerificationControl3" />
           </DisplayClaims>
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="email" />
+            <OutputClaim ClaimTypeReferenceId="objectId" />
+            <OutputClaim ClaimTypeReferenceId="userPrincipalName" />
+            <OutputClaim ClaimTypeReferenceId="authenticationSource" />
+            <OutputClaim ClaimTypeReferenceId="extension_PracticeName" />
+
+          </OutputClaims>
+          <ValidationTechnicalProfiles>
+            <ValidationTechnicalProfile ReferenceId="AAD-UserReadUsingEmailAddress" />
+          </ValidationTechnicalProfiles>
         </TechnicalProfile>
       </TechnicalProfiles>
     </ClaimsProvider>

@@ -19,6 +19,11 @@
         <DisplayName>Used for comparison</DisplayName>
         <DataType>string</DataType>
       </ClaimType>
+      <ClaimType Id="isForgotPassword">
+        <DisplayName>Indicates whether the user selected Forgot Password</DisplayName>
+        <DataType>boolean</DataType>
+        <AdminHelpText></AdminHelpText>
+      </ClaimType>
     </ClaimsSchema>
     <ClaimsTransformations>
       <ClaimsTransformation Id="AssertObjectIdObjectIdNotFoundAreEqual" TransformationMethod="AssertStringClaimsAreEqual">
@@ -64,7 +69,7 @@
       <LocalizedResources Id="api.localaccount.emailVerification.en">
         <LocalizedStrings>
           <LocalizedString ElementType="UxElement" StringId="button_continue">Continue</LocalizedString>
-          <LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfClaimsTransformationStringsAreNotEqual">There is another user with this email address.</LocalizedString>          
+          <LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfClaimsTransformationStringsAreNotEqual">There is another user with this email address.</LocalizedString>
         </LocalizedStrings>
       </LocalizedResources>
     </Localization>
@@ -117,6 +122,27 @@
     <ClaimsProvider>
       <DisplayName>Local Account</DisplayName>
       <TechnicalProfiles>
+        <!-- Set the isForgotPassword to true-->
+        <TechnicalProfile Id="ForgotPassword">
+          <DisplayName>Forgot your password?</DisplayName>
+          <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.ClaimsTransformationProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="isForgotPassword" DefaultValue="true" AlwaysUseDefaultValue="true" />
+          </OutputClaims>
+        </TechnicalProfile>
+
+        <!-- Update the sign-up or sign-in page with forgot password link target ClaimsExchange -->
+        <TechnicalProfile Id="SelfAsserted-LocalAccountSignin-Email">
+          <Metadata>
+            <Item Key="setting.forgotPasswordLinkOverride">ForgotPasswordExchange</Item>
+            <Item Key="SignUpTarget">SignUpWithLogonEmailExchange_EmailVerification</Item>
+          </Metadata>
+        </TechnicalProfile>
+
+        <!-- Adding the required session manager -->
+        <TechnicalProfile Id="LocalAccountWritePasswordUsingObjectId">
+          <UseTechnicalProfileForSessionManagement ReferenceId="SM-AAD" />
+        </TechnicalProfile>
         <!--Sign-up self-asserted technical profile without Email verification-->
         <TechnicalProfile Id="LocalAccountSignUpWithReadOnlyEmail">
           <DisplayName>Email signup</DisplayName>
@@ -166,6 +192,7 @@
         <OrchestrationStep Order="1" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="api.signuporsignin">
           <ClaimsProviderSelections>
             <ClaimsProviderSelection ValidationClaimsExchangeId="LocalAccountSigninEmailExchange" />
+            <ClaimsProviderSelection TargetClaimsExchangeId="ForgotPasswordExchange" />
           </ClaimsProviderSelections>
           <ClaimsExchanges>
             <ClaimsExchange Id="LocalAccountSigninEmailExchange" TechnicalProfileReferenceId="SelfAsserted-LocalAccountSignin-Email" />
@@ -182,9 +209,21 @@
           </Preconditions>
           <ClaimsExchanges>
             <ClaimsExchange Id="SignUpWithLogonEmailExchange_EmailVerification" TechnicalProfileReferenceId="EmailVerification" />
+            <ClaimsExchange Id="ForgotPasswordExchange" TechnicalProfileReferenceId="ForgotPassword" />
           </ClaimsExchanges>
         </OrchestrationStep>
-        <OrchestrationStep Order="3" Type="ClaimsExchange">
+        <OrchestrationStep Order="3" Type="InvokeSubJourney">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="false">
+              <Value>isForgotPassword</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <JourneyList>
+            <Candidate SubJourneyReferenceId="PasswordReset" />
+          </JourneyList>
+        </OrchestrationStep>
+        <OrchestrationStep Order="4" Type="ClaimsExchange">
           <Preconditions>
             <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
               <Value>objectId</Value>
@@ -195,16 +234,34 @@
             <ClaimsExchange Id="SignUpWithLogonEmailExchange_WithReadOnlyEmail" TechnicalProfileReferenceId="LocalAccountSignUpWithReadOnlyEmail" />
           </ClaimsExchanges>
         </OrchestrationStep>
-        <OrchestrationStep Order="4" Type="ClaimsExchange">
+        <OrchestrationStep Order="5" Type="ClaimsExchange">
           <ClaimsExchanges>
             <ClaimsExchange Id="AADUserReadWithObjectId" TechnicalProfileReferenceId="AAD-UserReadUsingObjectId" />
           </ClaimsExchanges>
         </OrchestrationStep>
-        <OrchestrationStep Order="5" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
+        <OrchestrationStep Order="6" Type="SendClaims" CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
       </OrchestrationSteps>
     </UserJourney>
   </UserJourneys>
+  <SubJourneys>
+    <SubJourney Id="PasswordReset" Type="Call">
+      <OrchestrationSteps>
+        <!-- Validate user's email address. Run this step only when user resets the password-->
+        <OrchestrationStep Order="1" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="PasswordResetUsingEmailAddressExchange" TechnicalProfileReferenceId="LocalAccountDiscoveryUsingEmailAddress2" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
 
+        <!-- Collect and persist a new password. Run this step only when user resets the password-->
+        <OrchestrationStep Order="2" Type="ClaimsExchange">
+          <ClaimsExchanges>
+            <ClaimsExchange Id="NewCredentials" TechnicalProfileReferenceId="LocalAccountWritePasswordUsingObjectId" />
+          </ClaimsExchanges>
+        </OrchestrationStep>
+      </OrchestrationSteps>
+    </SubJourney>
+  </SubJourneys>
   <RelyingParty>
     <DefaultUserJourney ReferenceId="SignUpOrSignIn_Custom" />
     <UserJourneyBehaviors>
@@ -221,6 +278,7 @@
         <OutputClaim ClaimTypeReferenceId="extension_PracticeName" />
         <OutputClaim ClaimTypeReferenceId="objectId" PartnerClaimType="sub"/>
         <OutputClaim ClaimTypeReferenceId="identityProvider" DefaultValue="" />
+        <OutputClaim ClaimTypeReferenceId="isForgotPassword" DefaultValue="false" />
         <OutputClaim ClaimTypeReferenceId="tenantId" AlwaysUseDefaultValue="true" DefaultValue="{Policy:TenantObjectId}" />
       </OutputClaims>
       <SubjectNamingInfo ClaimType="sub" />
