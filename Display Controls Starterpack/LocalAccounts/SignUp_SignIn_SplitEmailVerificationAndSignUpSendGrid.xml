@@ -108,7 +108,7 @@
             <Item Key="UserMessageIfClaimsTransformationStringsAreNotEqual">user exits</Item>
           </Metadata>
           <DisplayClaims>
-            <DisplayClaim DisplayControlReferenceId="emailVerificationControl2" />
+            <DisplayClaim DisplayControlReferenceId="emailVerificationBasicControl" />
           </DisplayClaims>
           <OutputClaims>
             <OutputClaim ClaimTypeReferenceId="email" Required="true" />

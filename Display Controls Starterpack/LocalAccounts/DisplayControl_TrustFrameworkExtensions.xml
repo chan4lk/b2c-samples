@@ -105,15 +105,15 @@
           <LocalizedString ElementType="GetLocalizedStringsTransformationClaimType" StringId="email_code">Your code is</LocalizedString>
           <LocalizedString ElementType="GetLocalizedStringsTransformationClaimType" StringId="email_signature">Sincerely</LocalizedString>
           <!-- Display control sign-up UI elements-->
-          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl2" StringId="intro_msg">Verification is necessary. Please click Send button.</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl2" StringId="success_send_code_msg">Verification code has been sent to your inbox. Please copy it to the input box below.</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl2" StringId="failure_send_code_msg">We are having trouble verifying your email address. Please enter a valid email address and try again.</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl2" StringId="success_verify_code_msg">E-mail address verified. You can now continue.</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl2" StringId="failure_verify_code_msg">We are having trouble verifying your email address. Please try again.</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl2" StringId="but_send_code">Send verification code</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl2" StringId="but_verify_code">Verify code</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl2" StringId="but_send_new_code">Send new code</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl2" StringId="but_change_claims">Change e-mail</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationBasicControl" StringId="intro_msg">Verification is necessary. Please click Send button.</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationBasicControl" StringId="success_send_code_msg">Verification code has been sent to your inbox. Please copy it to the input box below.</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationBasicControl" StringId="failure_send_code_msg">We are having trouble verifying your email address. Please enter a valid email address and try again.</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationBasicControl" StringId="success_verify_code_msg">E-mail address verified. You can now continue.</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationBasicControl" StringId="failure_verify_code_msg">We are having trouble verifying your email address. Please try again.</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationBasicControl" StringId="but_send_code">Send verification code</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationBasicControl" StringId="but_verify_code">Verify</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationBasicControl" StringId="but_send_new_code">Try again</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationBasicControl" StringId="but_change_claims">Change e-mail</LocalizedString>
           <!-- Display control password reset UI elements-->
           <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationSSPRControl" StringId="intro_msg">Verification is necessary. Please click Send button.</LocalizedString>
           <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationSSPRControl" StringId="success_send_code_msg">Verification code has been sent to your inbox. Please copy it to the input box below.</LocalizedString>
@@ -121,8 +121,8 @@
           <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationSSPRControl" StringId="success_verify_code_msg">E-mail address verified. You can now continue.</LocalizedString>
           <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationSSPRControl" StringId="failure_verify_code_msg">We are having trouble verifying your email address. Please try again.</LocalizedString>
           <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationSSPRControl" StringId="but_send_code">Send verification code</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationSSPRControl" StringId="but_verify_code">Verify code</LocalizedString>
-          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationSSPRControl" StringId="but_send_new_code">Send new code</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationSSPRControl" StringId="but_verify_code">Verify</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationSSPRControl" StringId="but_send_new_code">Try again</LocalizedString>
           <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationSSPRControl" StringId="but_change_claims">Change e-mail</LocalizedString>
           <!-- Claims-->
           <LocalizedString ElementType="ClaimType" ElementId="emailVerificationCode" StringId="DisplayName">Verification Code</LocalizedString>
@@ -139,7 +139,7 @@
       </LocalizedResources>
     </Localization>
     <DisplayControls>
-      <DisplayControl Id="emailVerificationControl2" UserInterfaceControlType="VerificationControl">
+      <DisplayControl Id="emailVerificationBasicControl" UserInterfaceControlType="VerificationControl">
         <DisplayClaims>
           <DisplayClaim ClaimTypeReferenceId="email" Required="true" />
           <DisplayClaim ClaimTypeReferenceId="verificationCode" ControlClaimType="VerificationCode" Required="true" />
@@ -161,7 +161,7 @@
           </Action>
         </Actions>
       </DisplayControl>
-      <DisplayControl Id="emailVerificationControl3" UserInterfaceControlType="VerificationControl">
+      <DisplayControl Id="emailVerificationSSPRControl" UserInterfaceControlType="VerificationControl">
          <InputClaims>
           <InputClaim ClaimTypeReferenceId="email" DefaultValue="{OIDC:LoginHint}" AlwaysUseDefaultValue="true" />
         </InputClaims>
@@ -193,38 +193,7 @@
             </ValidationClaimsExchange>
           </Action>
         </Actions>
-      </DisplayControl>
-      <DisplayControl Id="emailVerificationSSPRControl" UserInterfaceControlType="VerificationControl">
-        <InputClaims>
-          <InputClaim ClaimTypeReferenceId="email" DefaultValue="{OIDC:LoginHint}" AlwaysUseDefaultValue="true" />
-        </InputClaims>
-        <DisplayClaims>
-          <DisplayClaim ClaimTypeReferenceId="email" Required="true" />
-          <DisplayClaim ClaimTypeReferenceId="verificationCode" ControlClaimType="VerificationCode" Required="true" />
-        </DisplayClaims>
-        <OutputClaims></OutputClaims>
-        <Actions>
-          <Action Id="SendCode">
-            <ValidationClaimsExchange>
-              <ValidationClaimsExchangeTechnicalProfile TechnicalProfileReferenceId="AAD-CheckEmailAddressExists" />
-              <ValidationClaimsExchangeTechnicalProfile TechnicalProfileReferenceId="GenerateOtp" />
-              <ValidationClaimsExchangeTechnicalProfile TechnicalProfileReferenceId="SendOtp">
-                <Preconditions>
-                  <Precondition Type="ClaimsExist" ExecuteActionsIf="false">
-                    <Value>objectId</Value>
-                    <Action>SkipThisValidationTechnicalProfile</Action>
-                  </Precondition>
-                </Preconditions>
-              </ValidationClaimsExchangeTechnicalProfile>
-            </ValidationClaimsExchange>
-          </Action>
-          <Action Id="VerifyCode">
-            <ValidationClaimsExchange>
-              <ValidationClaimsExchangeTechnicalProfile TechnicalProfileReferenceId="VerifyOtp" />
-            </ValidationClaimsExchange>
-          </Action>
-        </Actions>
-      </DisplayControl>
+      </DisplayControl>      
     </DisplayControls>
   </BuildingBlocks>
   <ClaimsProviders>
@@ -294,7 +263,7 @@
             <InputClaimsTransformation ReferenceId="GetLocalizedStringsForEmail" />
           </InputClaimsTransformations>
           <DisplayClaims>
-            <DisplayClaim DisplayControlReferenceId="emailVerificationControl2" />
+            <DisplayClaim DisplayControlReferenceId="emailVerificationBasicControl" />
             <DisplayClaim ClaimTypeReferenceId="displayName" Required="true" />
             <DisplayClaim ClaimTypeReferenceId="givenName" Required="true" />
             <DisplayClaim ClaimTypeReferenceId="surName" Required="true" />
@@ -337,7 +306,7 @@
             <InputClaimsTransformation ReferenceId="GetLocalizedStringsForEmail" />
           </InputClaimsTransformations>
           <DisplayClaims>
-            <DisplayClaim DisplayControlReferenceId="emailVerificationControl3" />
+            <DisplayClaim DisplayControlReferenceId="emailVerificationSSPRControl" />
           </DisplayClaims>
           <OutputClaims>
             <OutputClaim ClaimTypeReferenceId="email" />

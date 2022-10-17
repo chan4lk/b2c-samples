@@ -938,7 +938,7 @@
           </InputClaims>
         </TechnicalProfile>
         <TechnicalProfile Id="AadSspr-VerifyCode">
-          <DisplayName>Verify Code</DisplayName>
+          <DisplayName>Verify</DisplayName>
           <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.AadSsprProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
           <Metadata>
             <Item Key="Operation">VerifyCode</Item>
