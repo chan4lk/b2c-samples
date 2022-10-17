@@ -37,6 +37,19 @@
         <DisplayName>Email signature</DisplayName>
         <DataType>string</DataType>
       </ClaimType>
+      <ClaimType Id="extension_PracticeName">
+        <DisplayName>Practice Name</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>Practice Name</UserHelpText>
+        <UserInputType>TextBox</UserInputType>
+      </ClaimType>
+      <ClaimType Id="TnCs">
+        <DataType>string</DataType>
+        <UserInputType>CheckboxMultiSelect</UserInputType>
+        <Restriction>
+          <Enumeration Text="" Value="tncstxt" SelectByDefault="false" />
+        </Restriction>
+      </ClaimType>
     </ClaimsSchema>
     <ClaimsTransformations>
       <ClaimsTransformation Id="GetLocalizedStringsForEmail" TransformationMethod="GetLocalizedStringsTransformation">
@@ -254,6 +267,7 @@
             <DisplayClaim ClaimTypeReferenceId="surName" Required="true" />
             <DisplayClaim ClaimTypeReferenceId="newPassword" Required="true" />
             <DisplayClaim ClaimTypeReferenceId="reenterPassword" Required="true" />
+            <DisplayClaim ClaimTypeReferenceId="extension_PracticeName" Required="true" />
           </DisplayClaims>
         </TechnicalProfile>
         <TechnicalProfile Id="AAD-CheckEmailAddressExists">
