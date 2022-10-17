@@ -149,6 +149,7 @@
             <OutputClaim ClaimTypeReferenceId="givenName" />
             <OutputClaim ClaimTypeReferenceId="surName" />
             <OutputClaim ClaimTypeReferenceId="extension_PracticeName" />
+            <OutputClaim ClaimTypeReferenceId="TnCs" Required="true" />
           </OutputClaims>
           <ValidationTechnicalProfiles>
             <ValidationTechnicalProfile ReferenceId="AAD-UserWriteUsingLogonEmail" />

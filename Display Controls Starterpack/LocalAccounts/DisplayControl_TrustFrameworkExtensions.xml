@@ -47,7 +47,7 @@
         <DataType>string</DataType>
         <UserInputType>CheckboxMultiSelect</UserInputType>
         <Restriction>
-          <Enumeration Text="" Value="tncstxt" SelectByDefault="false" />
+          <Enumeration Text="I agree to the Terms Of Service" Value="AgreeToTermsOfUseConsentYes" SelectByDefault="false" />
         </Restriction>
       </ClaimType>
     </ClaimsSchema>
@@ -268,6 +268,7 @@
             <DisplayClaim ClaimTypeReferenceId="newPassword" Required="true" />
             <DisplayClaim ClaimTypeReferenceId="reenterPassword" Required="true" />
             <DisplayClaim ClaimTypeReferenceId="extension_PracticeName" Required="true" />
+            <DisplayClaim ClaimTypeReferenceId="TnCs" Required="true" />
           </DisplayClaims>
         </TechnicalProfile>
         <TechnicalProfile Id="AAD-CheckEmailAddressExists">
