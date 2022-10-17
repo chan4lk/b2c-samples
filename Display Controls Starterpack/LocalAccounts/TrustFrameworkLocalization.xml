@@ -1,12 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<TrustFrameworkPolicy 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-  xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" 
-  PolicySchemaVersion="0.3.0.0" 
-  TenantId="bisteccaredevdemo.onmicrosoft.com" 
-  PolicyId="B2C_1A_TrustFrameworkLocalization" 
-  PublicPolicyUri="http://bisteccaredevdemo.onmicrosoft.com/B2C_1A_TrustFrameworkLocalization">
+<TrustFrameworkPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" PolicySchemaVersion="0.3.0.0" TenantId="bisteccaredevdemo.onmicrosoft.com" PolicyId="B2C_1A_TrustFrameworkLocalization" PublicPolicyUri="http://bisteccaredevdemo.onmicrosoft.com/B2C_1A_TrustFrameworkLocalization">
 
   <BasePolicy>
     <TenantId>bisteccaredevdemo.onmicrosoft.com</TenantId>
@@ -129,6 +124,9 @@
           <LocalizedString ElementType="UxElement" StringId="preloader_alt">Please wait</LocalizedString>
           <LocalizedString ElementType="UxElement" StringId="required_field">This information is required.</LocalizedString>
           <LocalizedString ElementType="UxElement" StringId="button_cancel">Cancel</LocalizedString>
+          <!-- The following elements will display a link at the bottom of the page. -->
+          <LocalizedString ElementType="UxElement" StringId="disclaimer_link_1_text">Terms of service</LocalizedString>
+          <LocalizedString ElementType="UxElement" StringId="disclaimer_link_1_url">https://admin-dev.bisteccare.com.au</LocalizedString>
           <!-- Display control UI elements-->
           <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl" StringId="intro_msg">Verification is necessary. Please click Send button.</LocalizedString>
           <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl" StringId="success_send_code_msg">Verification code has been sent to your inbox. Please copy it to the input box below.</LocalizedString>
