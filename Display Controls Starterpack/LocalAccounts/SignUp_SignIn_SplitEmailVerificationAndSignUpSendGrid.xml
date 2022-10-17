@@ -15,8 +15,21 @@
         <DataType>string</DataType>
         <UserInputType>Readonly</UserInputType>
       </ClaimType>
+      <ClaimType Id="objectIdNotFound">
+        <DisplayName>Used for comparison</DisplayName>
+        <DataType>string</DataType>
+      </ClaimType>
     </ClaimsSchema>
     <ClaimsTransformations>
+      <ClaimsTransformation Id="AssertObjectIdObjectIdNotFoundAreEqual" TransformationMethod="AssertStringClaimsAreEqual">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="objectId" TransformationClaimType="inputClaim1" />
+          <InputClaim ClaimTypeReferenceId="objectIdNotFound" TransformationClaimType="inputClaim2" />
+        </InputClaims>
+        <InputParameters>
+          <InputParameter Id="stringComparison" DataType="string" Value="ordinalIgnoreCase" />
+        </InputParameters>
+      </ClaimsTransformation>
       <ClaimsTransformation Id="CreateReadonlyEmailClaim" TransformationMethod="FormatStringClaim">
         <InputClaims>
           <InputClaim ClaimTypeReferenceId="email" TransformationClaimType="inputClaim" />
@@ -60,6 +73,25 @@
     <ClaimsProvider>
       <DisplayName>Email Verification</DisplayName>
       <TechnicalProfiles>
+        <TechnicalProfile Id="AAD-UserReadUsingEmailAddress-RaiseIfExists">
+          <Metadata>
+            <Item Key="Operation">Read</Item>
+            <Item Key="RaiseErrorIfClaimsPrincipalDoesNotExist">false</Item>
+          </Metadata>
+          <IncludeInSso>false</IncludeInSso>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="email" PartnerClaimType="signInNames.emailAddress" Required="true" />
+          </InputClaims>
+          <OutputClaims>
+            <!-- Required claims -->
+            <OutputClaim ClaimTypeReferenceId="objectId" DefaultValue="NOTFOUND" />
+            <OutputClaim ClaimTypeReferenceId="objectIdNotFound" DefaultValue="NOTFOUND" AlwaysUseDefaultValue="true" />
+          </OutputClaims>
+          <OutputClaimsTransformations>
+            <OutputClaimsTransformation ReferenceId="AssertObjectIdObjectIdNotFoundAreEqual" />
+          </OutputClaimsTransformations>
+          <IncludeTechnicalProfile ReferenceId="AAD-Common" />
+        </TechnicalProfile>
         <!--Email verification only-->
         <TechnicalProfile Id="EmailVerification">
           <DisplayName>Initiate Email Address Verification For Local Account</DisplayName>
@@ -67,6 +99,7 @@
           <Metadata>
             <Item Key="ContentDefinitionReferenceId">api.localaccount.emailVerification</Item>
             <Item Key="language.button_continue">Continue</Item>
+            <Item Key="UserMessageIfClaimsTransformationStringsAreNotEqual">There is another user with this email address</Item>
           </Metadata>
           <DisplayClaims>
             <DisplayClaim DisplayControlReferenceId="emailVerificationControl2" />
@@ -74,6 +107,9 @@
           <OutputClaims>
             <OutputClaim ClaimTypeReferenceId="email" Required="true" />
           </OutputClaims>
+          <ValidationTechnicalProfiles>
+            <ValidationTechnicalProfile ReferenceId="AAD-UserReadUsingEmailAddress-RaiseIfExists" />
+          </ValidationTechnicalProfiles>
         </TechnicalProfile>
       </TechnicalProfiles>
     </ClaimsProvider>
