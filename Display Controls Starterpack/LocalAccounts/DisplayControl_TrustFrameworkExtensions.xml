@@ -99,6 +99,7 @@
     <Localization Enabled="true">
       <LocalizedResources Id="api.custom-email.en">
         <LocalizedStrings>
+          <LocalizedString ElementType="UxElement" StringId="heading">B2C bisteccare</LocalizedString>
           <!--Email template parameters-->
           <LocalizedString ElementType="GetLocalizedStringsTransformationClaimType" StringId="email_subject">Contoso account email verification code</LocalizedString>
           <LocalizedString ElementType="GetLocalizedStringsTransformationClaimType" StringId="email_message">Thanks for validating the account</LocalizedString>
@@ -130,6 +131,7 @@
           <LocalizedString ElementType="ClaimType" ElementId="emailVerificationCode" StringId="AdminHelpText">Verification code received in the email.</LocalizedString>
           <LocalizedString ElementType="ClaimType" ElementId="email" StringId="DisplayName">Email</LocalizedString>
           <!-- Email validation error messages-->
+          <LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfMissingRequiredElement">The {0} field is required.</LocalizedString>
           <LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfSessionDoesNotExist">You have exceeded the maximum time allowed.</LocalizedString>
           <LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfMaxRetryAttempted">You have exceeded the number of retries allowed.</LocalizedString>
           <LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfInvalidCode">You have entered the wrong code.</LocalizedString>

@@ -122,11 +122,11 @@
           <LocalizedString ElementType="UxElement" StringId="helplink_text">What is this?</LocalizedString>
           <LocalizedString ElementType="UxElement" StringId="initial_intro">Please provide the following details.</LocalizedString>
           <LocalizedString ElementType="UxElement" StringId="preloader_alt">Please wait</LocalizedString>
-          <LocalizedString ElementType="UxElement" StringId="required_field">This information is required.</LocalizedString>
+          <LocalizedString ElementType="UxElement" StringId="required_field">This informtion is required.</LocalizedString>
           <LocalizedString ElementType="UxElement" StringId="button_cancel">Cancel</LocalizedString>
           <!-- The following elements will display a link at the bottom of the page. -->
-          <LocalizedString ElementType="UxElement" StringId="disclaimer_link_1_text">Terms of service</LocalizedString>
-          <LocalizedString ElementType="UxElement" StringId="disclaimer_link_1_url">https://admin-dev.bisteccare.com.au</LocalizedString>
+          <!-- <LocalizedString ElementType="UxElement" StringId="disclaimer_link_1_text">Terms of service</LocalizedString>
+          <LocalizedString ElementType="UxElement" StringId="disclaimer_link_1_url">https://admin-dev.bisteccare.com.au</LocalizedString> -->
           <!-- Display control UI elements-->
           <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl" StringId="intro_msg">Verification is necessary. Please click Send button.</LocalizedString>
           <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl" StringId="success_send_code_msg">Verification code has been sent to your inbox. Please copy it to the input box below.</LocalizedString>
@@ -179,7 +179,7 @@
           <LocalizedString ElementType="UxElement" StringId="button_cancel">Cancel</LocalizedString>
           <LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfClaimsPrincipalDoesNotExist">An account could not be found for the provided user ID.</LocalizedString>
           <LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfClaimsTransformationBooleanValueIsNotEqual">Your account has been locked. Contact your support person to unlock it, then try again.</LocalizedString>
-          <LocalizedString ElementType="UxElement" StringId="required_field">This information is required.</LocalizedString>
+          <LocalizedString ElementType="UxElement" StringId="required_field">The {0} field is required.</LocalizedString>
           <!-- Display control UI elements-->
           <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl" StringId="intro_msg">Verification is necessary. Please click Send button.</LocalizedString>
           <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationControl" StringId="success_send_code_msg">Verification code has been sent to your inbox. Please copy it to the input box below.</LocalizedString>

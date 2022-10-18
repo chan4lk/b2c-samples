@@ -50,7 +50,7 @@
 
     <ContentDefinitions>
       <ContentDefinition Id="api.localaccount.emailVerification">
-        <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+        <LoadUri>https://bisteccarestoreage.blob.core.windows.net/root/custom-signup-ui.html</LoadUri>
         <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.14</DataUri>
         <Metadata>
@@ -69,7 +69,10 @@
       <LocalizedResources Id="api.localaccount.emailVerification.en">
         <LocalizedStrings>
           <LocalizedString ElementType="UxElement" StringId="button_continue">Continue</LocalizedString>
+          <LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfMissingRequiredElement">The field {0} is required</LocalizedString>
           <LocalizedString ElementType="ErrorMessage" StringId="UserMessageIfClaimsTransformationStringsAreNotEqual">There is another user with this email address.</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationBasicControl" StringId="but_send_new_code">Try again</LocalizedString>
+          <LocalizedString ElementType="DisplayControl" ElementId="emailVerificationBasicControl" StringId="but_verify_code">Verify</LocalizedString>
         </LocalizedStrings>
       </LocalizedResources>
     </Localization>
