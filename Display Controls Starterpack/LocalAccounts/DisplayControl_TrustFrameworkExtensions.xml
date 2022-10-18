@@ -81,6 +81,13 @@
       </ClaimsTransformation>
     </ClaimsTransformations>
     <ContentDefinitions>
+      <!-- <ContentDefinition Id="api.signuporsignin">
+        <LoadUri>https://bisteccarestoreage.blob.core.windows.net/root/custom-signup-ui.html</LoadUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.1.7</DataUri>
+        <Metadata>
+          <Item Key="DisplayName">BisteCare SignIn or SignUP</Item>
+        </Metadata>
+      </ContentDefinition> -->
       <ContentDefinition Id="api.localaccountsignup">
         <LoadUri>https://bisteccarestoreage.blob.core.windows.net/root/custom-signup-ui.html</LoadUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.14</DataUri>
